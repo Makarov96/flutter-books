@@ -26,8 +26,10 @@ jobs:
 
       - name: build ios
         run: flutter build ios --release --no-codesign
+
       - name: Create IPA
-        run: xcodebuild -exportArchive -archivePath build/ios/iphoneos/Runner.xcarchive -exportOptionsPlist info.plist -exportPath build/ios/ipa
+        run: xcodebuild -exportArchive -archivePath build/ios/iphoneos/Runner.xcarchive -exportOptionsPlist info.plist -exportPath build/ios/iphoneos/Runner.app/
+
       - name: build artifacts
         uses: actions/upload-artifact@v4
         with:
