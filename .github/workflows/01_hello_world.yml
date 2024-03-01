@@ -19,3 +19,6 @@ jobs:
 
     - name: Called Dependencies
       run: flutter pub get
+
+    - name: run test
+      run: flutter test
