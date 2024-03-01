@@ -20,4 +20,4 @@ jobs:
       - name: Called Dependencies
         run: flutter pub get
       - name: print variables
-        run: echo "vars $dev_token_var secrets:$dev_token_secret"
+        run: echo "vars ${{env.dev_token_var}} secrets:${{env.dev_token_secret}}"
