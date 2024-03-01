@@ -7,3 +7,14 @@ on:
 jobs:
   build:
     runs-on: macos-lastest
+  
+  steps:
+  - name: Checkout code
+    uses: actions/checkout@v2
+  - name: Setup Flutter
+    uses: subosito/flutter-action@v2
+    with:
+      flutter-version: 'stable'
+
+  - name: Called Dependencies
+    run: flutter pub get
