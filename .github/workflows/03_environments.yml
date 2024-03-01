@@ -3,13 +3,14 @@ name: Environments
 on:
   push:
     branches: [main]
+env:
+  dev_token_var: ${{vars.DEV_TOKEN}}
+  dev_token_secret: ${{secrets.DEV_TOKEN}}
 
 jobs:
   build:
-    env:
-      dev_token_var: ${{vars.DEV_TOKEN}}
-      dev_token_secret: ${{secrets.DEV_TOKEN}}
     runs-on: macos-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -20,4 +21,4 @@ jobs:
       - name: Called Dependencies
         run: flutter pub get
       - name: print variables
-        run: echo "vars ${{env.dev_token_var}} secrets:${{env.dev_token_secret}}"
+        run: echo "vars:${{env.dev_token_var}} secrets:${{env.dev_token_secret}}"
