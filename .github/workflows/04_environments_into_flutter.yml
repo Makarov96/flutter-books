@@ -1,4 +1,5 @@
 name: GA-COMBINE-FLUTTER
+permissions: write-all
 
 on:
   push:
@@ -44,6 +45,7 @@ jobs:
       - name: ios-ipa
         uses: svenstaro/upload-release-action@v2
         with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: build/ios/iphoneos/FlutterIpaExport.ipa
           tag: v1.0
           overwrite: true
