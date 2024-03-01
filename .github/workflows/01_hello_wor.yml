@@ -1,0 +1,5 @@
+name: HELLO_WORLD
+
+on:
+    push:
+      branches: ['main']
