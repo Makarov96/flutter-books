@@ -23,3 +23,15 @@ jobs:
       #     run: flutter pub get
       - name: print variables
         run: echo "public:$dev_token_var secrets:$dev_token_secret"
+  flutter-masters-task:
+    runs-on: ubuntu-latest
+
+    environment: production
+
+    env:
+      vars_token_production: ${{vars.TOKEN}}
+      secrets_token_production: ${{secrets.TOKEN}}
+
+    steps:
+      - name: print variables
+        run: echo "public:$vars_token_production secrets:$secrets_token_production"
