@@ -1,7 +1,8 @@
 name: Environments
 
 on:
-  create:
+  push:
+    branches: [main]
 
 env:
   token: ${{vars.ENV_TOKEN}}
