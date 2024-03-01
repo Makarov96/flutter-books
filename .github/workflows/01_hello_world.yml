@@ -1,5 +1,9 @@
-name: HELLO_WORLD
+name: CI
 
 on:
     push:
       branches: ['main']
+
+jobs:
+  build:
+    runs-on: macos-lastest
