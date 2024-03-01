@@ -1,0 +1,31 @@
+name: GA-COMBINE-FLUTTER
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: "stable"
+      - name: Called Dependencies
+        run: flutter pub get
+
+      - name: build apk
+        run: flutter build apk --debug
+
+      - name: build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: My Android APK
+          path: build/app/outputs/apk/debug/app-debug.apk
+
+  flutter-masters-build-apk-on-ubuntu:
+    runs-on: ubuntu-latest
