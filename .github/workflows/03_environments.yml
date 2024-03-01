@@ -1,8 +1,7 @@
 name: Environments
 
 on:
-  push:
-    branches: [main]
+  create:
 
 jobs:
   build:
