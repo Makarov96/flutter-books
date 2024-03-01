@@ -1,24 +1,24 @@
 name: CI
 
 on:
-    push:
-      branches: ['main']
+  push:
+    branches: ["main"]
 
 jobs:
   build:
-    runs-on: macos-lastest
+    runs-on: macos-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Setup Flutter
-      uses: subosito/flutter-action@v2
-      with:
-        flutter-version: 'stable'
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "stable"
 
-    - name: Called Dependencies
-      run: flutter pub get
+      - name: Called Dependencies
+        run: flutter pub get
 
-    - name: run test
-      run: flutter test
+      - name: run test
+        run: flutter test
