@@ -5,7 +5,7 @@ on:
     branches: [main]
 
 jobs:
-  build:
+  flutter-masters-build-ios:
     runs-on: macos-latest
 
     steps:
@@ -14,8 +14,36 @@ jobs:
 
       - uses: actions/setup-java@v4
         with:
-          distribution: "zulu" # See 'Supported distributions' for available options
-          java-version: "21"
+          distribution: "zulu"
+          java-version: "11"
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: "stable"
+      - name: Called Dependencies
+        run: flutter pub get
+
+      - name: build ios
+        run: flutter build ios --release --no-codesign
+
+    #   - name: build artifacts
+    #     uses: actions/upload-artifact@v4
+    #     with:
+    #       name: My Android APK
+    #       path: build/app/outputs/apk/debug/app-debug.apk
+
+  flutter-masters-build-apk-on-ubuntu:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: "zulu"
+          java-version: "11"
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -32,10 +60,3 @@ jobs:
         with:
           name: My Android APK
           path: build/app/outputs/apk/debug/app-debug.apk
-
-  flutter-masters-build-apk-on-ubuntu:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Hello world
-        run: echo "Hello world"
