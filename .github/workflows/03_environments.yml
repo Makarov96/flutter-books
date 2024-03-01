@@ -17,7 +17,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: "stable"
-      - name: called dependencies
+      - name: Called Dependencies
         run: flutter pub get
-      - name: print vars and secrets
+      - name: Print Vars and Secrets
         run: echo "token:${{env.token}} secret:${{env.secret_token}}"
