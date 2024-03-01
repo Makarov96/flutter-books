@@ -1,5 +1,8 @@
 name: Environments
 
+env:
+  dev_token_var: ${{vars.TOKEN}}
+  dev_token_secret: ${{secrets.TOKEN}}
 on:
   push:
     branches: [main]
@@ -18,4 +21,4 @@ jobs:
       #   - name: Called Dependencies
       #     run: flutter pub get
       - name: print variables
-        run: echo "public:${{vars.DEV_TOKEN}} secrets:${{secrets.DEV_TOKEN}}"
+        run: echo "public:$dev_token_var secrets:$dev_token_secret"
