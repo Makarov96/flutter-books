@@ -1,4 +1,4 @@
-name: CI
+name: FIRST-ACTION
 
 on:
   push:
@@ -16,3 +16,8 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           flutter-version: 3.19.0
+      - name: Called Dependencies
+        run: flutter pub get
+
+      - name: run test
+        run: flutter test
