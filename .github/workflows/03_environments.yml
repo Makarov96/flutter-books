@@ -3,6 +3,10 @@ name: Environments
 on:
   create:
 
+env:
+  token: ${{vars.ENV_TOKEN}}
+  secret_token: ${{secrets.TOKEN}}
+
 jobs:
   build:
     runs-on: macos-latest
@@ -15,3 +19,5 @@ jobs:
           channel: "stable"
       - name: called dependencies
         run: flutter pub get
+      - name: print vars and secrets
+        run: echo "token:${{env.token}} secret:${{env.secret_token}}"
