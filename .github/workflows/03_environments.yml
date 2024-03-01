@@ -4,12 +4,11 @@ on:
   push:
     branches: [main]
 
-env:
-  token: ${{vars.ENV_TOKEN}}
-  secret_token: ${{secrets.TOKEN}}
-
 jobs:
   build:
+    env:
+      dev_token_var: ${{vars.DEV_TOKEN}}
+      dev_token_secret: ${{secrets.DEV_TOKEN}}
     runs-on: macos-latest
     steps:
       - name: Checkout code
@@ -20,16 +19,5 @@ jobs:
           channel: "stable"
       - name: Called Dependencies
         run: flutter pub get
-      - name: Print Vars and Secrets
-        run: echo "token:${{env.token}} secret:${{env.secret_token}}"
-
-  flutter-masters-production:
-    runs-on: ubuntu-latest
-    environment: production
-    env:
-      token_prod: ${{vars.TOKEN}}
-      secret_token_prod: ${{secrets.TOKEN}}
-
-    steps:
-      - name: RUN ECHO
-        run: echo "secret:$secret_token_prod public:$token_prod"
+      - name: print variables
+        run: echo "vars $dev_token_var secrets:$dev_token_secret"
