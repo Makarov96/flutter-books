@@ -15,7 +15,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: "stable"
-      - name: Called Dependencies
+      - name: called dependencies
         run: flutter pub get
 
       - name: run test
