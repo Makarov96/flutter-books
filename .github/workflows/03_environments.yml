@@ -1,8 +1,5 @@
 name: Environments
 
-env:
-  dev_token_var: ${{vars.TOKEN}}
-  dev_token_secret: ${{secrets.TOKEN}}
 on:
   push:
     branches: [main]
@@ -10,6 +7,10 @@ on:
 jobs:
   build:
     runs-on: macos-latest
+
+    env:
+      dev_token_var: ${{vars.TOKEN}}
+      dev_token_secret: ${{secrets.TOKEN}}
 
     steps:
       #   - name: Checkout code
