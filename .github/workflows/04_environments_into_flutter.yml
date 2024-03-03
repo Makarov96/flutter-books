@@ -90,7 +90,7 @@ jobs:
         run: flutter pub get
 
       - name: create env directory
-        run: mkdir env && -R cp dist env && ls env
+        run: mkdir env && cp dist env && ls env
 
       - name: create prod.json into prod
         run: |
