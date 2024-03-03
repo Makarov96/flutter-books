@@ -45,7 +45,7 @@ jobs:
 
       - name: create dev.json into env
         run: |
-          echo "foo":${{env.dev_foo_secret}} > env/dev.json
+          echo "foo":${{env.dev_foo_secret}} > dev.json
         working-directory: env
 
       - name: build ipa file
@@ -93,7 +93,7 @@ jobs:
 
       - name: create prod.json into prod
         run: |
-          echo "foo":${{env.secrets_foo_production}} > env/prod.json
+          echo "foo":${{env.secrets_foo_production}} > prod.json
         working-directory: env
 
       - name: build apk
