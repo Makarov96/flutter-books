@@ -57,6 +57,7 @@ jobs:
 
   flutter-masters-build-apk-on-ubuntu:
     runs-on: ubuntu-latest
+    environment: production
     env:
       vars_token_production: ${{vars.TOKEN}}
       secrets_token_production: ${{secrets.TOKEN}}
