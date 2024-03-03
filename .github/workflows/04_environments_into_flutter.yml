@@ -1,6 +1,11 @@
 name: GA-COMBINE-FLUTTER
 permissions: write-all
 
+# on:
+#   pull_request:
+#     types: [closed]
+#     branches: [develop]
+
 on:
   push:
     branches: [main]
@@ -8,6 +13,10 @@ on:
 jobs:
   flutter-masters-build-ios:
     runs-on: macos-latest
+    env:
+      dev_token_var: ${{vars.TOKEN}}
+      dev_token_secret: ${{secrets.TOKEN}}
+      dev_foo_secret: ${{secrets.FOO}}
 
     steps:
       - name: Checkout code
@@ -31,8 +40,15 @@ jobs:
         run: pod repo update
         working-directory: ios
 
+      - name: create env directory
+        run: mkdir env
+
+      - name: create dev.json into env
+        run: |
+          echo "foo":${{env.dev_foo_secret}} > env/dev.json
+
       - name: build ipa file
-        run: flutter build ipa --no-codesign
+        run: flutter build ipa --no-codesign --dart-define-from-file=env/dev.json
 
       - name: Compress Archives and IPAs
         run: |
@@ -49,21 +65,38 @@ jobs:
 
   flutter-masters-build-apk-on-ubuntu:
     runs-on: ubuntu-latest
+    env:
+      vars_token_production: ${{vars.TOKEN}}
+      secrets_token_production: ${{secrets.TOKEN}}
+      secrets_foo_production: ${{secrets.FOO}}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - uses: actions/setup-java@v4
+
+      - name: install java
+        uses: actions/setup-java@v4
         with:
           distribution: "zulu"
           java-version: "11"
+
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: "stable"
+
       - name: Called Dependencies
         run: flutter pub get
+
+      - name: create env directory
+        run: mkdir env
+
+      - name: create prod.json into prod
+        run: |
+          echo "foo":${{env.secrets_foo_production}} > env/prod.json
+
       - name: build apk
-        run: flutter build apk --release
+        run: flutter build apk --release --dart-define-from-file=env/prod.json
+
       - name: build artifacts
         uses: actions/upload-artifact@v4
         with:
