@@ -93,17 +93,10 @@ jobs:
         run: |
           mkdir -p env && ls env
 
-      # - name: create prod.json into env
-      #   run: |
-      #     echo "{"foo":"${{env.secrets_foo_production}}"}" > "prod.json"
-      #   working-directory: env
-
       - name: create prod.json into env
-        uses: jsdaniell/create-json@v1.2.3
-
-        with:
-          file_path: "env/prod.json" # Path to the desired file
-          content: "{foo:${{env.secrets_foo_production}}}"
+        run: |
+          echo "{"foo":"${{env.secrets_foo_production}}"}" > "prod.json"
+        working-directory: env
 
       - name: build apk
         run: flutter build apk --release --dart-define-from-file=env/prod.json
