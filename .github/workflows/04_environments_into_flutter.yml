@@ -42,11 +42,11 @@ jobs:
 
       - name: create env directory
         run: |
-          mkdir -p dev && ls env
+          mkdir -p "env" && ls env
 
       - name: create dev.json into env
         run: |
-          echo {"foo":${{env.dev_foo_secret}}} > dev.json
+          echo {"foo":${{env.dev_foo_secret}}} > "dev.json"
         working-directory: env
 
       - name: build ipa file
