@@ -92,7 +92,7 @@ jobs:
 
       - name: create prod.json into env
         run: |
-          echo "{"foo":"${{env.secrets_foo_production}}"}" > "prod.json"
+          echo '{"foo":"${{env.secrets_foo_production}}"}' > "prod.json"
         working-directory: env
 
       - name: Called Dependencies
