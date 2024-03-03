@@ -41,13 +41,12 @@ jobs:
         working-directory: ios
 
       - name: create env directory
-        run: |
-          mkdir -p env/ && cp dist env/
-          ls env/
+        run: mkdir dev
 
       - name: create dev.json into env
         run: |
           echo "foo":${{env.dev_foo_secret}} > env/dev.json
+        working-directory: env
 
       - name: build ipa file
         run: flutter build ipa --no-codesign --dart-define-from-file=env/dev.json
@@ -90,11 +89,12 @@ jobs:
         run: flutter pub get
 
       - name: create env directory
-        run: mkdir env && cp dist env && ls env
+        run: mkdir env
 
       - name: create prod.json into prod
         run: |
           echo "foo":${{env.secrets_foo_production}} > env/prod.json
+        working-directory: env
 
       - name: build apk
         run: flutter build apk --release --dart-define-from-file=env/prod.json
