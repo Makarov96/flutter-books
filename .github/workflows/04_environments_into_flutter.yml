@@ -42,7 +42,7 @@ jobs:
 
       - name: create env directory
         run: |
-          mkdir -p env/ && cp -R dist env/
+          mkdir -p env/ && cp dist env/
           ls env/
 
       - name: create dev.json into env
