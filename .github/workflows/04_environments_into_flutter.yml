@@ -86,18 +86,17 @@ jobs:
         with:
           channel: "stable"
 
-      - name: Called Dependencies
-        run: flutter pub get
-
       - name: create env directory
         run: |
-          mkdir -p env && ls env &&
-          echo "{"foo":"${{env.secrets_foo_production}}"}" > "prod.json"
+          mkdir -p "env" && ls env
 
-      # - name: create prod.json into env
-      #   run: |
-      #     echo "{"foo":"${{env.secrets_foo_production}}"}" > "prod.json"
-      #   working-directory: env
+      - name: create prod.json into env
+        run: |
+          echo "{"foo":"${{env.secrets_foo_production}}"}" > "prod.json"
+        working-directory: env
+
+      - name: Called Dependencies
+        run: flutter pub get
 
       - name: build apk
         run: flutter build apk --release --dart-define-from-file=env/prod.json
