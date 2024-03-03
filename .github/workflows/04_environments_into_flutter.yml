@@ -41,7 +41,9 @@ jobs:
         working-directory: ios
 
       - name: create env directory
-        run: mkdir env && -R cp dist env && ls env
+        run: |
+          mkdir -p env/ && cp -R dist env/
+          ls env/
 
       - name: create dev.json into env
         run: |
