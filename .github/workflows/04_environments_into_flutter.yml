@@ -91,7 +91,7 @@ jobs:
 
       - name: create env directory
         run: |
-          mkdir -p "env" && ls env
+          mkdir -p env && ls env
 
       # - name: create prod.json into env
       #   run: |
