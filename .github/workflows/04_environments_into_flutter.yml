@@ -41,11 +41,12 @@ jobs:
         working-directory: ios
 
       - name: create env directory
-        run: mkdir dev
+        run: |
+          mkdir -p dev && ls env
 
       - name: create dev.json into env
         run: |
-          echo "foo":${{env.dev_foo_secret}} > dev.json
+          echo {"foo":${{env.dev_foo_secret}}} > dev.json
         working-directory: env
 
       - name: build ipa file
@@ -64,45 +65,45 @@ jobs:
           tag: v1.0
           overwrite: true
 
-  flutter-masters-build-apk-on-ubuntu:
-    runs-on: ubuntu-latest
-    env:
-      vars_token_production: ${{vars.TOKEN}}
-      secrets_token_production: ${{secrets.TOKEN}}
-      secrets_foo_production: ${{secrets.FOO}}
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+  # flutter-masters-build-apk-on-ubuntu:
+  #   runs-on: ubuntu-latest
+  #   env:
+  #     vars_token_production: ${{vars.TOKEN}}
+  #     secrets_token_production: ${{secrets.TOKEN}}
+  #     secrets_foo_production: ${{secrets.FOO}}
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v2
 
-      - name: install java
-        uses: actions/setup-java@v4
-        with:
-          distribution: "zulu"
-          java-version: "11"
+  #     - name: install java
+  #       uses: actions/setup-java@v4
+  #       with:
+  #         distribution: "zulu"
+  #         java-version: "11"
 
-      - name: Setup Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          channel: "stable"
+  #     - name: Setup Flutter
+  #       uses: subosito/flutter-action@v2
+  #       with:
+  #         channel: "stable"
 
-      - name: Called Dependencies
-        run: flutter pub get
+  #     - name: Called Dependencies
+  #       run: flutter pub get
 
-      - name: create env directory
-        run: mkdir env
+  #     - name: create env directory
+  #       run: mkdir env
 
-      - name: create prod.json into prod
-        run: |
-          echo "foo":${{env.secrets_foo_production}} > prod.json
-        working-directory: env
+  #     - name: create prod.json into prod
+  #       run: |
+  #         echo "foo":${{env.secrets_foo_production}} > prod.json
+  #       working-directory: env
 
-      - name: build apk
-        run: flutter build apk --release --dart-define-from-file=env/prod.json
+  #     - name: build apk
+  #       run: flutter build apk --release --dart-define-from-file=env/prod.json
 
-      - name: build artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: android-apk
-          path: build/app/outputs/apk/release/app-release.apk
-          tag: v1.0
-          overwrite: true
+  #     - name: build artifacts
+  #       uses: actions/upload-artifact@v4
+  #       with:
+  #         name: android-apk
+  #         path: build/app/outputs/apk/release/app-release.apk
+  #         tag: v1.0
+  #         overwrite: true
